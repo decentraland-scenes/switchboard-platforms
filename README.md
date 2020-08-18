@@ -1,4 +1,4 @@
-# Switchboard Platforms
+# Switchboard Platforms (Workshop)
 _demo of switchboard-platforms scene running in preview._
 
 ![demo](https://github.com/decentraland-scenes/switchboard-platforms/blob/master/screenshots/switchboard-platforms.gif)
