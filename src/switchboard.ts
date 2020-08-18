@@ -20,18 +20,19 @@ export class Switchboard extends Entity {
     this.addComponent(model)
     this.addComponent(new Transform({ position: startPos }))
 
+    // Parent button and gears to switchboard
     buttonA.setParent(this)
     buttonB.setParent(this)
     gears.setParent(this)
 
-    // Create trigger for entity
+    // Button triggers
     buttonA.addComponent(
       new utils.TriggerComponent(buttonTriggerA, null, null, null, null, () => {
         switchSound.getComponent(AudioSource).playOnce()
         this.getComponent(utils.ToggleComponent).set(utils.ToggleState.Off)
         buttonA.getComponent(Transform).position.y = -0.125
         buttonB.getComponent(Transform).position.y = 0
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 150)))
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180)))
       })
     )
 
@@ -41,10 +42,11 @@ export class Switchboard extends Entity {
         this.getComponent(utils.ToggleComponent).set(utils.ToggleState.On)
         buttonA.getComponent(Transform).position.y = 0
         buttonB.getComponent(Transform).position.y = -0.125
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -150)))
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180)))
       })
     )
 
+    // Move the switchboard
     this.addComponent(
       new utils.ToggleComponent(utils.ToggleState.Off, (value: ToggleState) => {
         // Move the platform to the end position
@@ -53,19 +55,19 @@ export class Switchboard extends Entity {
             new utils.MoveTransformComponent(
               this.getComponent(Transform).position,
               endPos,
-              (endPos.x - this.getComponent(Transform).position.x) * 0.25,
+              (endPos.x - this.getComponent(Transform).position.x) * 0.33,
               () => {
                 this.resetButtons(buttonA, buttonB, gears)
               }
             )
           )
         } else {
-          // Move the platform to the start position once the player
+          // Move the platform to the start position
           this.addComponentOrReplace(
             new utils.MoveTransformComponent(
               this.getComponent(Transform).position,
               startPos,
-              (this.getComponent(Transform).position.x - startPos.x) * 0.25,
+              (this.getComponent(Transform).position.x - startPos.x) * 0.33,
               () => {
                 this.resetButtons(buttonA, buttonB, gears)
               }

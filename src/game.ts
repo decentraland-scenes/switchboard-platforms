@@ -22,23 +22,23 @@ const coin = new Coin(coinShape, new Transform({ position: new Vector3(29, 6, 8)
 const buttonAShape = new GLTFShape("models/buttonA.glb")
 const buttonBShape = new GLTFShape("models/buttonB.glb")
 
-const buttonABlue = new Entity()
-buttonABlue.addComponent(buttonAShape)
-buttonABlue.addComponent(new Transform())
+const buttonA = new Entity()
+buttonA.addComponent(buttonAShape)
+buttonA.addComponent(new Transform())
 
-const buttonBBlue = new Entity()
-buttonBBlue.addComponent(buttonBShape)
-buttonBBlue.addComponent(new Transform())
+const buttonB = new Entity()
+buttonB.addComponent(buttonBShape)
+buttonB.addComponent(new Transform())
 
 const gears = new Entity()
 gears.addComponent(new GLTFShape("models/gears.glb"))
 gears.addComponent(new Transform())
 
-const switchboardBlue = new Switchboard(
-  new GLTFShape("models/switchboardBlue.glb"), 
+const switchboard = new Switchboard(
+  new GLTFShape("models/switchboard.glb"), 
   new Vector3(8, 3, 8),
   new Vector3(27, 3, 8),
-  buttonABlue,
-  buttonBBlue,
+  buttonA,
+  buttonB,
   gears
 )
