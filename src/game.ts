@@ -18,7 +18,7 @@ const coinShape = new GLTFShape("models/starCoin.glb") // Includes the spinning 
 let triggerBoxShape = new utils.TriggerBoxShape(new Vector3(1.5, 2.5, 1.5), new Vector3(0, 1, 0)) // Trigger shape for coin
 const coin = new Coin(coinShape, new Transform({ position: new Vector3(29, 6, 8) }), triggerBoxShape)
 
-// Switchboards
+// Switchboard
 const buttonAShape = new GLTFShape("models/buttonA.glb")
 const buttonBShape = new GLTFShape("models/buttonB.glb")
 
@@ -30,10 +30,15 @@ const buttonBBlue = new Entity()
 buttonBBlue.addComponent(buttonBShape)
 buttonBBlue.addComponent(new Transform())
 
+const gears = new Entity()
+gears.addComponent(new GLTFShape("models/gears.glb"))
+gears.addComponent(new Transform())
+
 const switchboardBlue = new Switchboard(
   new GLTFShape("models/switchboardBlue.glb"), 
   new Vector3(8, 3, 8),
   new Vector3(27, 3, 8),
   buttonABlue,
-  buttonBBlue
+  buttonBBlue,
+  gears
 )

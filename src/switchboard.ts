@@ -14,7 +14,7 @@ const buttonTriggerA = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Ve
 const buttonTriggerB = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(1.5, 2, 0))
 
 export class Switchboard extends Entity {
-  constructor(model: GLTFShape, startPos: Vector3, endPos: Vector3, public buttonA: Entity, public buttonB: Entity) {
+  constructor(model: GLTFShape, startPos: Vector3, endPos: Vector3, public buttonA: Entity, public buttonB: Entity, public gears: Entity) {
     super()
     engine.addEntity(this)
     this.addComponent(model)
@@ -22,6 +22,7 @@ export class Switchboard extends Entity {
 
     buttonA.setParent(this)
     buttonB.setParent(this)
+    gears.setParent(this)
 
     // Create trigger for entity
     buttonA.addComponent(
@@ -30,6 +31,7 @@ export class Switchboard extends Entity {
         this.getComponent(utils.ToggleComponent).set(utils.ToggleState.Off)
         buttonA.getComponent(Transform).position.y = -0.125
         buttonB.getComponent(Transform).position.y = 0
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 150)))
       })
     )
 
@@ -39,6 +41,7 @@ export class Switchboard extends Entity {
         this.getComponent(utils.ToggleComponent).set(utils.ToggleState.On)
         buttonA.getComponent(Transform).position.y = 0
         buttonB.getComponent(Transform).position.y = -0.125
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -150)))
       })
     )
 
@@ -50,9 +53,9 @@ export class Switchboard extends Entity {
             new utils.MoveTransformComponent(
               this.getComponent(Transform).position,
               endPos,
-              (endPos.x - this.getComponent(Transform).position.x) * 0.1,
+              (endPos.x - this.getComponent(Transform).position.x) * 0.25,
               () => {
-                this.resetButtons(buttonA, buttonB)
+                this.resetButtons(buttonA, buttonB, gears)
               }
             )
           )
@@ -62,9 +65,9 @@ export class Switchboard extends Entity {
             new utils.MoveTransformComponent(
               this.getComponent(Transform).position,
               startPos,
-              (this.getComponent(Transform).position.x - startPos.x) * 0.1,
+              (this.getComponent(Transform).position.x - startPos.x) * 0.25,
               () => {
-                this.resetButtons(buttonA, buttonB)
+                this.resetButtons(buttonA, buttonB, gears)
               }
             )
           )
@@ -73,9 +76,10 @@ export class Switchboard extends Entity {
     )
   }
 
-  private resetButtons(buttonA: Entity, buttonB: Entity) {
+  private resetButtons(buttonA: Entity, buttonB: Entity, gears: Entity) {
     switchSound.getComponent(AudioSource).playOnce()
     buttonA.getComponent(Transform).position.y = 0
     buttonB.getComponent(Transform).position.y = 0
+    gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 0)))
   }
 }
