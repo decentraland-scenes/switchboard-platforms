@@ -63,12 +63,12 @@ export class Switchboard extends Entity {
     )
   }
 
-  private movePlatform(startPos: Vector3, endPos: Vector3): void {
+  private movePlatform(currentPosition: Vector3, targetPosition: Vector3): void {
     this.addComponentOrReplace(
       new utils.MoveTransformComponent(
-        startPos,
-        endPos,
-        Math.abs(endPos.x - this.getComponent(Transform).position.x) * 0.33,
+        currentPosition,
+        targetPosition,
+        Math.abs(targetPosition.x - this.getComponent(Transform).position.x) * 0.33,
         () => {
           this.resetButtons()
         }
