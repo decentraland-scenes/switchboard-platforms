@@ -43,18 +43,15 @@ export class Switchboard extends Entity {
     this.buttonA.getComponent(Transform).position.y = buttonAPos
     this.buttonB.getComponent(Transform).position.y = buttonBPos
     let currentPos = this.getComponent(Transform).position
+    this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, rotationSpeed)))
     this.addComponentOrReplace(
       new utils.MoveTransformComponent(currentPos, targetPos, Math.abs(targetPos.x - currentPos.x) * 0.25, () => {
-        this.resetButtons()
+        // Reset buttons
+        switchSound.getComponent(AudioSource).playOnce()
+        this.buttonA.getComponent(Transform).position.y = 0
+        this.buttonB.getComponent(Transform).position.y = 0
+        this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 0)))
       })
     )
-    this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, rotationSpeed)))
-  }
-
-  private resetButtons(): void {
-    switchSound.getComponent(AudioSource).playOnce()
-    this.buttonA.getComponent(Transform).position.y = 0
-    this.buttonB.getComponent(Transform).position.y = 0
-    this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 0)))
   }
 }
