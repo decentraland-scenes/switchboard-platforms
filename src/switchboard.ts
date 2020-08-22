@@ -21,27 +21,27 @@ export class Switchboard extends Entity {
     gears.setParent(this)
 
     // Trigger configurations
-    const buttonTriggerA = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(-1.5, 2, 0))
-    const buttonTriggerB = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(1.5, 2, 0))
+    const buttonTriggerA = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(1.5, 2, 0))
+    const buttonTriggerB = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(-1.5, 2, 0))
 
     // Button triggers
     buttonA.addComponent(
       new utils.TriggerComponent(buttonTriggerA, null, null, null, null, () => {
-        this.movePlatform(this.getComponent(Transform).position, startPos)
+        this.movePlatform(this.getComponent(Transform).position, endPos)
         switchSound.getComponent(AudioSource).playOnce()
         buttonA.getComponent(Transform).position.y = -0.125
         buttonB.getComponent(Transform).position.y = 0
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180)))
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180)))
       })
     )
 
     buttonB.addComponent(
       new utils.TriggerComponent(buttonTriggerB, null, null, null, null, () => {
-        this.movePlatform(this.getComponent(Transform).position, endPos)
+        this.movePlatform(this.getComponent(Transform).position, startPos)
         switchSound.getComponent(AudioSource).playOnce()
         buttonA.getComponent(Transform).position.y = 0
         buttonB.getComponent(Transform).position.y = -0.125
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180)))
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180)))
       })
     )
   }
