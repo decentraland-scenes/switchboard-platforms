@@ -9,14 +9,7 @@ switchSound.getComponent(Transform).position = Camera.instance.position
 engine.addEntity(switchSound)
 
 export class Switchboard extends Entity {
-  constructor(
-    model: GLTFShape,
-    startPos: Vector3,
-    endPos: Vector3,
-    public buttonA: Entity,
-    public buttonB: Entity,
-    public gears: Entity
-  ) {
+  constructor(model: GLTFShape, startPos: Vector3, endPos: Vector3, public buttonA: Entity, public buttonB: Entity, public gears: Entity) {
     super()
     engine.addEntity(this)
     this.addComponent(model)
@@ -28,14 +21,8 @@ export class Switchboard extends Entity {
     gears.setParent(this)
 
     // Trigger configurations
-    const buttonTriggerA = new TriggerBoxShape(
-      new Vector3(2.75, 2.75, 2.75),
-      new Vector3(-1.5, 2, 0)
-    )
-    const buttonTriggerB = new TriggerBoxShape(
-      new Vector3(2.75, 2.75, 2.75),
-      new Vector3(1.5, 2, 0)
-    )
+    const buttonTriggerA = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(-1.5, 2, 0))
+    const buttonTriggerB = new TriggerBoxShape(new Vector3(2.75, 2.75, 2.75), new Vector3(1.5, 2, 0))
 
     // Button triggers
     buttonA.addComponent(
@@ -44,9 +31,7 @@ export class Switchboard extends Entity {
         switchSound.getComponent(AudioSource).playOnce()
         buttonA.getComponent(Transform).position.y = -0.125
         buttonB.getComponent(Transform).position.y = 0
-        gears.addComponentOrReplace(
-          new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180))
-        )
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180)))
       })
     )
 
@@ -56,9 +41,7 @@ export class Switchboard extends Entity {
         switchSound.getComponent(AudioSource).playOnce()
         buttonA.getComponent(Transform).position.y = 0
         buttonB.getComponent(Transform).position.y = -0.125
-        gears.addComponentOrReplace(
-          new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180))
-        )
+        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180)))
       })
     )
   }

@@ -35,7 +35,7 @@ gears.addComponent(new GLTFShape("models/gears.glb"))
 gears.addComponent(new Transform())
 
 const switchboard = new Switchboard(
-  new GLTFShape("models/switchboard.glb"), 
+  new GLTFShape("models/switchboard.glb"),
   new Vector3(8, 3, 8),
   new Vector3(27, 3, 8),
   buttonA,
