@@ -27,36 +27,28 @@ export class Switchboard extends Entity {
     // Button triggers
     buttonA.addComponent(
       new utils.TriggerComponent(buttonTriggerA, null, null, null, null, () => {
-        this.movePlatform(this.getComponent(Transform).position, endPos)
-        switchSound.getComponent(AudioSource).playOnce()
-        buttonA.getComponent(Transform).position.y = -0.125
-        buttonB.getComponent(Transform).position.y = 0
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, -180)))
+        this.movePlatform(-0.12, 0, -180, endPos)
       })
     )
 
     buttonB.addComponent(
       new utils.TriggerComponent(buttonTriggerB, null, null, null, null, () => {
-        this.movePlatform(this.getComponent(Transform).position, startPos)
-        switchSound.getComponent(AudioSource).playOnce()
-        buttonA.getComponent(Transform).position.y = 0
-        buttonB.getComponent(Transform).position.y = -0.125
-        gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 180)))
+        this.movePlatform(0, -0.12, 180, startPos)
       })
     )
   }
 
-  private movePlatform(currentPosition: Vector3, targetPosition: Vector3): void {
+  private movePlatform(buttonAPos: number, buttonBPos: number, rotationSpeed: number, targetPos: Vector3) {
+    switchSound.getComponent(AudioSource).playOnce()
+    this.buttonA.getComponent(Transform).position.y = buttonAPos
+    this.buttonB.getComponent(Transform).position.y = buttonBPos
+    let currentPos = this.getComponent(Transform).position
     this.addComponentOrReplace(
-      new utils.MoveTransformComponent(
-        currentPosition,
-        targetPosition,
-        Math.abs(targetPosition.x - this.getComponent(Transform).position.x) * 0.33,
-        () => {
-          this.resetButtons()
-        }
-      )
+      new utils.MoveTransformComponent(currentPos, targetPos, Math.abs(targetPos.x - currentPos.x) * 0.25, () => {
+        this.resetButtons()
+      })
     )
+    this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, rotationSpeed)))
   }
 
   private resetButtons(): void {
