@@ -50,7 +50,7 @@ export class Switchboard extends Entity {
         switchSound.getComponent(AudioSource).playOnce()
         this.buttonA.getComponent(Transform).position.y = 0
         this.buttonB.getComponent(Transform).position.y = 0
-        this.gears.addComponentOrReplace(new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, 0)))
+        this.gears.getComponent(utils.KeepRotatingComponent).stop()
       })
     )
   }
