@@ -6,11 +6,11 @@ import * as utils from '@dcl/ecs-scene-utils'
  */
 const coinPickupSound = new Entity()
 coinPickupSound.addComponent(new Transform())
-coinPickupSound.getComponent(Transform).position = Camera.instance.position
 coinPickupSound.addComponent(
   new AudioSource(new AudioClip('sounds/coinPickup.mp3'))
 )
 engine.addEntity(coinPickupSound)
+coinPickupSound.setParent(Attachable.AVATAR)
 
 export class Coin extends Entity {
   constructor(

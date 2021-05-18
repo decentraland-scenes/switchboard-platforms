@@ -4,8 +4,8 @@ import * as utils from '@dcl/ecs-scene-utils'
 const switchSound = new Entity()
 switchSound.addComponent(new AudioSource(new AudioClip('sounds/switch.mp3')))
 switchSound.addComponent(new Transform())
-switchSound.getComponent(Transform).position = Camera.instance.position
 engine.addEntity(switchSound)
+switchSound.setParent(Attachable.AVATAR)
 
 export class Switchboard extends Entity {
   constructor(
