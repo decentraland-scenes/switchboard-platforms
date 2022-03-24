@@ -15,7 +15,7 @@ engine.addEntity(platforms)
 
 // Coins
 const coinShape = new GLTFShape('models/starCoin.glb') // Includes the spinning animation
-let triggerBoxShape = new utils.TriggerBoxShape(
+const triggerBoxShape = new utils.TriggerBoxShape(
   new Vector3(1.5, 2.5, 1.5),
   new Vector3(0, 1, 0)
 ) // Trigger shape for coin

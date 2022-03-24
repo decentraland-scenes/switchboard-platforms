@@ -41,7 +41,7 @@ export class Switchboard extends Entity {
       new utils.TriggerComponent(buttonTriggerA, {
         onCameraEnter: () => {
           this.movePlatform(-0.12, 0, -180, endPos)
-        },
+        }
       })
     )
 
@@ -49,7 +49,7 @@ export class Switchboard extends Entity {
       new utils.TriggerComponent(buttonTriggerB, {
         onCameraEnter: () => {
           this.movePlatform(0, -0.12, 180, startPos)
-        },
+        }
       })
     )
   }
@@ -63,7 +63,7 @@ export class Switchboard extends Entity {
     switchSound.getComponent(AudioSource).playOnce()
     this.buttonA.getComponent(Transform).position.y = buttonAPos
     this.buttonB.getComponent(Transform).position.y = buttonBPos
-    let currentPos = this.getComponent(Transform).position
+    const currentPos = this.getComponent(Transform).position
     this.gears.addComponentOrReplace(
       new utils.KeepRotatingComponent(Quaternion.Euler(0, 0, rotationSpeed))
     )

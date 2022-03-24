@@ -32,7 +32,7 @@ export class Coin extends Entity {
         },
         onCameraExit: () => {
           engine.removeEntity(this)
-        },
+        }
       })
     )
   }
